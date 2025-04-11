@@ -1,0 +1,30 @@
+# Backend
+fastapi
+uvicorn
+
+# Modelo LLM local
+llama-cpp-python>=0.2.61
+
+# LangChain core + comunidad
+langchain
+langchain-community
+
+# Embeddings
+langchain-huggingface
+
+# Vectorstore
+langchain-chroma
+chromadb
+
+# Document loaders para HTML
+unstructured
+beautifulsoup4
+html5lib
+lxml
+
+# Embeddings de HuggingFace
+sentence-transformers
+
+# Utilidades
+python-dotenv
+requests

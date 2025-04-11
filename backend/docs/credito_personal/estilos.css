@@ -1,0 +1,169 @@
+/*ESTILOS JQUERY*/
+body {
+	font: 62.5% Arial, Helvetica, sans-serif;
+}
+*, :after, :before {
+  box-sizing: border-box;
+}
+a:link {
+	color: #0063bd;
+	text-decoration: none; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #0063bd;
+	text-decoration: none;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	color: #808284;
+	text-decoration: underline;
+}
+#dialog-link {
+	padding: .4em 1em .4em 20px;
+	text-decoration: none;
+	position: relative;
+}
+#dialog-link span.ui-icon {
+	margin: 0 5px 0 0;
+	position: absolute;
+	left: .2em;
+	top: 50%;
+	margin-top: -8px;
+}
+#icons {
+	margin: 0;
+	padding: 0;
+}
+#icons li {
+	margin: 2px;
+	position: relative;
+	padding: 4px 0;
+	cursor: pointer;
+	float: left;
+	list-style: none;
+}
+#icons span.ui-icon {
+	float: left;
+	margin: 0 4px;
+}
+.fakewindowcontain .ui-widget-overlay {
+	position: absolute;
+}
+
+/*ESTILOS VARIOS*/
+.Etiquetas {
+	font-size: 14px;
+	font-style: normal;
+	color: #626366;
+}
+.Etiqueta-info {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  background: #ffca00;
+  padding: 10px;
+  color: #005CB4;
+}
+.Numero {
+	font-size: 14px;
+	font-style: normal;
+	font-weight: normal;
+	color: #039;
+	height: 2rem;
+	padding: .25rem;
+	text-align: right;
+	width: 100%;
+}
+
+.Select {
+	width: 100%;
+	padding: .25rem;
+	height: 2.5rem;
+	line-height: 28px;
+	font-size: 12px;
+	border-radius: 0;
+	color:#FFF;
+	background: #0067AD url("imagenes/arrow_down.png") no-repeat 98% 50%;
+	overflow: hidden;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.Texto {
+	font-size: 12px;
+	color: #039;
+	width: 170px;
+}
+.Error {
+	font-size: 14px;
+  font-style: normal;
+  color: #F00;
+  padding: 10px;
+}
+
+.EtiquetaResult {
+	font-size: 11px;
+	font-style: normal;
+	border: solid;
+	border: 1px solid #cccccc;
+	color: #0067AD;
+	text-align: right;
+	width: 100%;
+}
+.ui-icon-help-circle {
+	background-image: url(imagenes/help_icon.png);
+	-moz-background-size: 14px 14px;
+	-o-background-size: 14px 14px;
+	-webkit-background-size: 14px 14px;
+	background-size: 14px 14px;
+	width: 14px;
+	height: 14px;
+	float: left;
+	margin-right: 0.3em;
+}
+.ui-icon-help-circle:hover {
+	background-image: url(imagenes/help_icon_hover.png);
+}
+.ocultar {
+	display: none;
+}
+/*.InputText{
+    width: 170px;
+}*/
+
+#cont_meg_futuro {
+	width: 100%;
+	padding: 0.3em;
+	margin-bottom:10px;
+}
+#cont_meg_futuro h2 {
+	  text-align: left;
+  margin-bottom: 10px;
+  font-size: 14px;
+  padding: .4em 1em;
+  font-weight: normal;
+  margin: .1em 0;
+}
+#cont_meg_plazo {
+	width: 100%;
+	padding: 0.3em;
+	margin-bottom:10px;
+}
+#cont_meg_plazo h2 {
+	text-align: left;
+  margin-bottom: 10px;
+  font-size: 14px;
+  padding: .4em 1em;
+  font-weight: normal;
+  margin: .1em 0;
+}
+#cont_login {
+	width: 300px;
+	height: 140px;
+	padding: 0.3em;
+}
+#cont_login h2 {
+	text-align: center;
+	margin: 0;
+	margin-bottom: 10px;
+	font-size: 12px;
+}

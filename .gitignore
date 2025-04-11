@@ -1,0 +1,43 @@
+# Entornos virtuales
+venv/
+.env
+.env.*
+
+# Archivos de configuración de IDEs
+.vscode/
+.idea/
+
+# Archivos de Python compilados
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Archivos de logs
+*.log
+
+# Base de datos Chroma y vectores
+backend/db/
+*.sqlite*
+*.bin
+
+# Modelos grandes
+models/
+*.gguf
+
+# Archivos HTML/PDF/etc de entrada no necesarios en repo
+*.html
+*.pdf
+*.docx
+
+# Archivos de imágenes grandes que no quieres trackear
+*.png
+*.jpg
+*.jpeg
+*.gif
+
+# Otros artefactos generados
+*.lock
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
