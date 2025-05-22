@@ -1,30 +1,28 @@
-# Backend
+# === CORE ===
 fastapi
 uvicorn
 
-# Modelo LLM local
+# === LLM LOCAL ===
 llama-cpp-python>=0.2.61
 
-# LangChain core + comunidad
+# === LangChain (estructura y conectores) ===
 langchain
+langchain-core
 langchain-community
-
-# Embeddings
-langchain-huggingface
-
-# Vectorstore
 langchain-chroma
+langchain-huggingface
 chromadb
 
-# Document loaders para HTML
+# === Embeddings ===
+sentence-transformers
+huggingface-hub
+
+# === Loaders HTML para RAG ===
 unstructured
 beautifulsoup4
 html5lib
 lxml
 
-# Embeddings de HuggingFace
-sentence-transformers
-
-# Utilidades
+# === Utilidades extra (opcional) ===
 python-dotenv
 requests

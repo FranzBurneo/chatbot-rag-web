@@ -1,27 +1,35 @@
-from langchain_community.document_loaders import UnstructuredHTMLLoader
+from langchain_community.document_loaders import UnstructuredHTMLLoader, TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 import os
 
-# 1. Cargar los HTMLs desde la carpeta /docs
-loaders = [
-    UnstructuredHTMLLoader("docs/credito_negocio.html"),
-    UnstructuredHTMLLoader("docs/credito_personal.html"),
+# === CARGAR DOCUMENTOS HTML Y CLASIFICAR POR TIPO DE CRÉDITO ===
+docs_info = [
+    ("docs/credito_negocio.html", "Crédito para negocios"),
+    ("docs/credito_personal.html", "Crédito personal")
 ]
 
 documents = []
-for loader in loaders:
-    documents.extend(loader.load())
+for file_path, tipo_credito in docs_info:
+    loader = UnstructuredHTMLLoader(file_path)
+    loaded_docs = loader.load()
+    for doc in loaded_docs:
+        doc.metadata["tipo_credito"] = tipo_credito
+    documents.extend(loaded_docs)
 
-# 2. Dividir el texto en chunks
+# === CARGAR DOCUMENTO ADICIONAL DE SIMULADORES (sin clasificación) ===
+simuladores = TextLoader("docs/simuladores.md").load()
+documents.extend(simuladores)
+
+# === DIVISIÓN EN CHUNKS ===
 splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
 docs = splitter.split_documents(documents)
 
-# 3. Crear embeddings
+# === EMBEDDINGS ===
 embedding = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
-# 4. Guardar en Chroma (no se usa db.persist())
+# === GUARDAR EN CHROMA ===
 db = Chroma.from_documents(
     docs,
     embedding,
@@ -29,4 +37,4 @@ db = Chroma.from_documents(
     collection_name="creditos"
 )
 
-print("✅ Base de datos vectorial generada correctamente.")
+print("✅ Ingesta finalizada: documentos clasificados y base vectorial generada.")
