@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://coopmego.com/sim/simulador.php?tipo_simulador=NEGOCIO -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Simulador</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script type="text/javascript" src="./jquery-1.10.2.js.descarga"></script>
+<script type="text/javascript" src="./jquery-ui.js.descarga"></script>
+<link href="./jquery-ui.css" rel="stylesheet">
+<link rel="stylesheet" href="./jquery-ui.theme.css">
+<link href="./jtable.css" rel="stylesheet" type="text/css">
+<link href="./estilos.css" rel="stylesheet" type="text/css">
+<link href="./responsive.css" rel="stylesheet" type="text/css">
+<script src="./simulador_js.js.descarga" type="text/javascript"></script>
+<script src="./jquery.jtable.js.descarga" type="text/javascript"></script>
+<script src="./jquery.formatCurrency.js.descarga" type="text/javascript"></script>
+</head>
+<body oncopy="return false" onpaste="return false" style="">
+<div class="root">
+  <table width="100%" border="0" align="center" cellpadding="1">
+    <tbody><tr>
+      <td><div id="msm_error" class="ui-state-error ui-corner-all Error" style="padding: 0.2em;display: none;"></div></td>
+    </tr>
+  </tbody></table>
+  
+  <!--Inicio box de ingreso de datos-->
+  <div class="box box1">
+    <table border="0" align="center" cellpadding="2" cellspacing="4">
+      <tbody><tr id="row_cred_vivienda_1" class="ocultar">
+        <td width="397" class="Etiquetas"><span id="spn_destino_cred" title="-"></span>Destino de crédito ($):</td>
+        <td align="right"><select name="cmb_destino_cred" id="cmb_destino_cred" class="Select" onchange="limpiarFormulario()">
+          </select></td>
+      </tr>
+      <tr id="row_cred_vivienda_2" class="ocultar">
+        <td width="397" class="Etiquetas"><span id="spn_precio_compra" title="-"></span>
+          <label id="lbl_precio_compra">Precio compra ($):</label></td>
+        <td align="right"><input name="txtPrecioCompra" type="text" id="txtPrecioCompra" onkeypress="return isNumberKey(event)" class="text ui-widget-content ui-corner-all Numero" onblur="return porcentaje()"></td>
+      </tr>
+      <tr id="row_cred_vivienda_3" class="ocultar">
+        <td width="397" class="Etiquetas"><span id="spn_aporte_cliente" title="-"></span>
+          <label id="lbl_aporte_cliente">Aporte Socio &gt;50%($):</label></td>
+        <td align="right"><input name="txtAporteCliente" type="text" id="txtAporteCliente" onkeypress="return isNumberKey(event)" class="text ui-widget-content ui-corner-all Numero" onblur="return montoFinanciar()"></td>
+      </tr>
+      <tr>
+        <td width="397" class="Etiquetas"><span id="spn_monto_int" title="-" class="ui-icon ui-icon-help-circle"></span>Monto ($): </td>
+        <td width="395" align="right"><input name="txtMonto" type="text" id="txtMonto" onkeypress="return isNumberKey(event)" class="text ui-widget-content ui-corner-all Numero" maxlength="7"></td>
+      </tr>
+      <tr>
+        <td width="397" class="Etiquetas"><span id="spn_plazo_int" title="-" class="ui-icon ui-icon-help-circle"></span>Plazo (meses):</td>
+        <td align="right"><input name="txtPlazo" type="text" id="txtPlazo" onkeypress="return isNumberKey(event)" class="text ui-widget-content ui-corner-all Numero" maxlength="3"></td>
+      </tr>
+      <tr id="row_cred_negocio_1" class="">
+        <td width="397" class="Etiquetas"><span id="spn_nivel_ventas" title="-" class="ui-icon ui-icon-help-circle"></span>Nivel de ventas mensual:</td>
+        <td align="right"><input name="txtNivelVentas" type="text" id="txtNivelVentas" onkeypress="return isNumberKey(event)" class="text ui-widget-content ui-corner-all Numero" maxlength="8"></td>
+      </tr>
+	  <tr id="row_cred_negocio_costo_ventas" class="">
+        <td width="397" class="Etiquetas"><span id="spn_costo_ventas" title="-" class="ui-icon ui-icon-help-circle"></span>Costo de ventas mensual:</td>
+        <td align="right"><input name="txtCostoVentas" type="text" id="txtCostoVentas" onkeypress="return isNumberKey(event)" class="text ui-widget-content ui-corner-all Numero" maxlength="8"></td>
+      </tr>
+      <tr>
+        <td width="397" class="Etiquetas"><span id="spn_tipo_gar_int" title="-" class="ui-icon ui-icon-help-circle"></span>Tipo de garantía:</td>
+        <td align="right"><select name="cmb_tipo_garantia" id="cmb_tipo_garantia" class="Select"><option value="F">FIRMAS</option><option value="H">HIPOTECA</option><option value="P">PRENDA</option></select></td>
+      </tr>
+      <tr>
+        <td width="397" class="Etiquetas"><span id="spn_tipo_tabla_int" style="float: left; margin-right: 0.3em;" title="-" class="ui-icon ui-icon-help-circle"></span>Tipo de amortización:</td>
+        <td align="right"><select name="cmb_tipo_tabla" id="cmb_tipo_tabla" class="Select"><option value="F">CUOTA FIJA (FRANCESA)</option><option value="A">CAPITAL FIJO (ALEMANA)</option></select></td>
+      </tr>
+      <tr>
+        <td colspan="2" align="right"><button name="btn_calcular" id="btn_calcular" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false"><span class="ui-button-icon-primary ui-icon ui-icon-check"></span><span class="ui-button-text">Calcular</span></button> <button name="btn_limpiar" id="btn_limpiar" tabindex="1" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false"><span class="ui-button-icon-primary ui-icon ui-icon-refresh"></span><span class="ui-button-text">Limpiar</span></button>
+          </td>
+      </tr>
+      <tr>
+        <td colspan="2" align="right">&nbsp;</td>
+      </tr>
+    </tbody></table>
+  </div>
+  <!--Fin box de ingreso de datos-->
+  
+  
+  <span class="currencyLabel" style="display: none;">$1,220.00</span>
+  
+  <!--Inicio box Footer y links-->
+  <div class="box box2">
+    <table width="100%" border="0" align="center" cellpadding="2" cellspacing="4">
+      <tbody><tr>
+        <td align="center" class="Etiqueta-info">* Este simulador le mostrará el valor de la cuota referencial a la tasa de interés vigente, si necesita mayor información acérquese a una de nuestras Oficinas.</td>
+      </tr>
+    </tbody></table>
+    <table width="100%" border="0" align="center" cellpadding="1">
+      <tbody><tr>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center"><span class="Etiquetas">Otros simuladores: <a id="lin_informacion" href="https://coopmego.com/?page_id=102" target="_top">Crédito para sus gastos</a></span></td>
+      </tr>
+      <tr>
+        <td width="570" align="center"><!--<span class="Etiquetas">Otros simuladores: <a href="./?page_id=102" target="_top">Crédito para sus gastos</a> | <a href="../?page_id=119" target="_top">Crédito para su negocio</a></span>--></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+    </tbody></table>
+  </div>
+  <!--Fin box Footer y links-->
+  
+  
+</div>
+
+<div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" tabindex="-1" role="dialog" aria-describedby="dialog" aria-labelledby="ui-id-1" style="display: none;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span id="ui-id-1" class="ui-dialog-title">Alerta</span><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" aria-disabled="false" title="close"><span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">close</span></button></div><div id="dialog" class="ui-dialog-content ui-widget-content">
+    <p>Texto por defecto</p>
+  </div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Ok</span></button></div></div></div><div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable" tabindex="-1" role="dialog" aria-describedby="ventana_resp_sim" aria-labelledby="ui-id-2" style="display: none;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span id="ui-id-2" class="ui-dialog-title">Datos de la Simulación</span><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" aria-disabled="false" title="close"><span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">close</span></button></div><div id="ventana_resp_sim" style="" class="ui-dialog-content ui-widget-content">
+    <table width="100%" align="center">
+      <tbody><tr>
+        <td width="20%"><span id="spn_monto" title="-" class="ui-icon-help-circle"></span>
+          <label for="name">Monto:</label></td>
+        <td width="25%" align="right" style="padding-right:10px;"><input type="textbox" name="lbl_monto" id="lbl_monto" class="EtiquetaResult" readonly=""></td>
+        <td width="30%"><span id="spn_total_pagar" title="-" class="ui-icon-help-circle"></span>Total a pagar:</td>
+        <td width="25%" align="right"><input type="textbox" name="lbl_total_pagar" id="lbl_total_pagar" class="EtiquetaResult" readonly=""></td>
+      </tr>
+      <tr>
+        <td width="20%"><span id="spn_intereses" title="-" class="ui-icon-help-circle"></span>
+          <label for="name">Intereses:</label></td>
+        <td width="25%" align="right" style="padding-right:10px;"><input type="textbox" name="lbl_interes" id="lbl_interes" class="EtiquetaResult" readonly=""></td>
+        <td width="30%"><span id="spn_tasa_nominal" title="-" class="ui-icon-help-circle"></span>Tasa de interés nominal:</td>
+        <td width="25%" align="right"><input type="textbox" name="lbl_int_nominal" id="lbl_int_nominal" class="EtiquetaResult" readonly=""></td>
+      </tr>
+      <tr>
+        <td width="20%"><span id="spn_seguros" title="-" class="ui-icon-help-circle"></span>
+          <label for="name">Seguros:</label></td>
+        <td width="25%" align="right" style="padding-right:10px;"><input type="textbox" name="lbl_seguro" id="lbl_seguro" class="EtiquetaResult" readonly=""></td>
+        <td width="30%"><span id="spn_tasa_efectiva" title="-" class="ui-icon-help-circle"></span>Tasa de interés efectiva:</td>
+        <td width="25%" align="right"><input type="textbox" name="lbl_int_efectiva" id="lbl_int_efectiva" class="EtiquetaResult" readonly=""></td>
+      </tr>
+      <tr>
+        <td width="20%"><span id="spn_otros" title="-" class="ui-icon-help-circle"></span>
+          <label for="name">Otros:</label></td>
+        <td width="25%" align="right" style="padding-right:10px;"><input type="textbox" name="lbl_otros" id="lbl_otros" class="EtiquetaResult" readonly=""></td>
+        <td width="30%"><span id="spn_tasa_costo" title="-" class="ui-icon-help-circle"></span>Tasa int. ef. C. financ.:</td>
+        <td width="25%" align="right"><input type="textbox" name="lbl_tasa_costo_finan" id="lbl_tasa_costo_finan" class="EtiquetaResult" readonly=""></td>
+      </tr>
+      <tr>
+        <td width="20%">&nbsp;</td>
+        <td width="25%" align="right" style="padding-right: 10px;">&nbsp;</td>
+        <td width="30%"><span id="spn_tipo_tabla" title="-" class="ui-icon-help-circle"></span>Tipo de amortización:</td>
+        <td width="25%" align="right"><input type="textbox" name="lbl_amortizacion" id="lbl_amortizacion" style="font-size:9px;" class="EtiquetaResult" readonly=""></td>
+      </tr>
+    </tbody></table>
+    <div id="PersonTableContainer" style="width:100%; margin-top:5px;"><div class="jtable-main-container"><div class="jtable-busy-panel-background" style="display: none;"></div><div class="jtable-busy-message" style="display: none;"></div><div class="jtable-title"><div class="jtable-title-text">Tabla de Amortización</div><div class="jtable-toolbar"></div></div><table class="jtable"><thead><tr><th class="jtable-column-header" style="width: 5%;"><div class="jtable-column-header-container"><span class="jtable-column-header-text">Div.</span><div class="jtable-column-resize-handler"></div></div></th><th class="jtable-column-header" style="width: 20%;"><div class="jtable-column-header-container"><span class="jtable-column-header-text">Saldo cap.</span><div class="jtable-column-resize-handler"></div></div></th><th class="jtable-column-header" style="width: 15%;"><div class="jtable-column-header-container"><span class="jtable-column-header-text">Monto cap.</span><div class="jtable-column-resize-handler"></div></div></th><th class="jtable-column-header" style="width: 15%;"><div class="jtable-column-header-container"><span class="jtable-column-header-text">Interés</span><div class="jtable-column-resize-handler"></div></div></th><th class="jtable-column-header" style="width: 10%; display: none;"><div class="jtable-column-header-container"><span class="jtable-column-header-text">Seguro</span><div class="jtable-column-resize-handler"></div></div></th><th class="jtable-column-header" style="width: 15%;"><div class="jtable-column-header-container"><span class="jtable-column-header-text">Otros</span><div class="jtable-column-resize-handler"></div></div></th><th class="jtable-column-header" style="width: 15%;"><div class="jtable-column-header-container"><span class="jtable-column-header-text">Cuota</span><div class="jtable-column-resize-handler"></div></div></th><th class="jtable-column-header" style="width: 15%;"><div class="jtable-column-header-container"><span class="jtable-column-header-text">Cuota Final</span></div></th></tr></thead><tbody><tr class="jtable-no-data-row"><td colspan="8">No data available!</td></tr></tbody></table><div class="jtable-bottom-panel"><div class="jtable-left-area"><span class="jtable-page-list"></span><span class="jtable-goto-page"><span>Ir a la página: </span><select><option value="1">1</option></select></span></div><div class="jtable-right-area"><span class="jtable-page-info"></span></div></div></div></div>
+    <iframe id="iframe_imprimir" scrolling="auto" src="./rpt_tabla_amortizacion.html" frameborder="0" height="5px" width="100%" style="display:none"> </iframe>
+  </div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false"><span class="ui-button-icon-primary ui-icon ui-icon-print"></span><span class="ui-button-text">Imprimir</span></button><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false"><span class="ui-button-icon-primary ui-icon ui-icon-comment"></span><span class="ui-button-text">Más Información</span></button><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false"><span class="ui-button-icon-primary ui-icon ui-icon-arrowreturnthick-1-w"></span><span class="ui-button-text">Volver</span></button></div></div></div><div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable" tabindex="-1" role="dialog" aria-describedby="ui-id-3" aria-labelledby="ui-id-4" style="display: none; position: absolute;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span id="ui-id-4" class="ui-dialog-title">Error</span><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" aria-disabled="false" title="close"><span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">close</span></button></div><div id="ui-id-3" class="ui-dialog-content ui-widget-content"></div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Close</span></button></div></div><div class="ui-resizable-handle ui-resizable-n" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-s" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-sw" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-ne" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-nw" style="z-index: 90;"></div></div></body></html>
