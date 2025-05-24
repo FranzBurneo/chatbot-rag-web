@@ -11,13 +11,13 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # === MODELO LLM LOCAL ===
-model_path = "./models/phi-2.Q4_K_M.gguf"
+model_path = "./models/openhermes-2.5-mistral-7b.Q4_K_M.gguf"
 llm = LlamaCpp(
     model_path=model_path,
     n_ctx=2048,               

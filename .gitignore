@@ -25,9 +25,9 @@ models/
 *.gguf
 
 # Archivos HTML/PDF/etc de entrada no necesarios en repo
-*.html
-*.pdf
-*.docx
+# *.html
+# *.pdf
+# *.docx
 
 # Archivos de imágenes grandes que no quieres trackear
 *.png
