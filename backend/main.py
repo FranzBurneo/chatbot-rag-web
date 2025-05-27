@@ -17,23 +17,24 @@ app.add_middleware(
 )
 
 # === MODELO LLM LOCAL ===
-model_path = "./models/openhermes-2.5-mistral-7b.Q4_K_M.gguf"
+model_path = "./models/openhermes-2.5-mistral-7b.Q5_K_M.gguf"
 llm = LlamaCpp(
     model_path=model_path,
-    n_ctx=2048,               
-    n_threads=6,              
-    n_gpu_layers=30,          
-    temperature=0.7,
-    max_tokens=400,           
+    n_ctx=4096,
+    n_threads=8,
+    n_gpu_layers=40,
+    temperature=0.3,
+    max_tokens=512,
     top_p=0.95,
-    stop=["Usuario:", "Pregunta:"],
     use_mlock=False,
     use_mmap=True,
     verbose=False
 )
 
-# === EMBEDDINGS Y VECTORSTORE (más compatible) ===
-embedding = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+# === EMBEDDINGS Y VECTORSTORE ===
+#embedding = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+embedding = HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-small")
+
 vectorstore = Chroma(
     persist_directory="db",
     collection_name="creditos",
@@ -42,9 +43,13 @@ vectorstore = Chroma(
 
 # === PROMPT PERSONALIZADO ===
 custom_prompt = PromptTemplate.from_template(
-    """Eres un asistente experto en créditos que responde en español basándote solo en el siguiente contexto:
+    """Eres el asistente de CoopMego. Tu función es responder preguntas en español sobre productos financieros, tasas de interés, simuladores y otros servicios.
 
+Responde usando únicamente el contexto proporcionado. Si encuentras un enlace relevante en el contexto, inclúyelo en la respuesta.
+
+=== CONTEXTO ===
 {context}
+================
 
 Pregunta del usuario: {question}
 
@@ -60,10 +65,17 @@ qa_chain = RetrievalQA.from_chain_type(
     chain_type_kwargs={"prompt": custom_prompt}
 )
 
-# === ENDPOINT ===
+greetings = ["hola", "buenos días", "buenas", "buenas tardes", "saludos", "me puedes ayudar"]
+
 @app.post("/ask")
 async def ask(req: Request):
     data = await req.json()
-    question = data.get("question", "")
+    question = data.get("question", "").lower().strip()
+
+    if any(greet in question for greet in greetings):
+        return {
+            "answer": "¡Hola! Soy el chatbot de CoopMego. Estoy aquí para ayudarte con información sobre créditos, tasas de interés y otros servicios. ¿En qué puedo ayudarte?"
+        }
+
     result = qa_chain.run(question)
     return {"answer": result}

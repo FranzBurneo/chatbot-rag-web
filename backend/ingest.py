@@ -1,53 +1,52 @@
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.document_loaders import UnstructuredHTMLLoader, TextLoader, PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
-import os
+import re
 
-# === Cargar documentos HTML ===
+# === Cargar HTML ===
 docs_info = [
     ("docs/credito_negocio.html", "Crédito para negocios"),
     ("docs/credito_personal.html", "Crédito personal")
 ]
 
 documents = []
-for file_path, tipo_credito in docs_info:
-    loader = UnstructuredHTMLLoader(file_path)
-    loaded_docs = loader.load()
-    for doc in loaded_docs:
-        doc.metadata["tipo_credito"] = tipo_credito
-    documents.extend(loaded_docs)
+for path, tipo in docs_info:
+    loader = UnstructuredHTMLLoader(path)
+    loaded = loader.load()
+    for doc in loaded:
+        doc.page_content = re.sub(r"Pregunta del usuario:\s*", "", doc.page_content)
+        doc.page_content = re.sub(r"Respuesta:\s*", "", doc.page_content)
+        doc.metadata["tipo_credito"] = tipo
+    documents.extend(loaded)
 
-# === Cargar documento adicional de simuladores ===
-simuladores = TextLoader("docs/simuladores.md").load()
-documents.extend(simuladores)
+# === Simuladores ===
+documents.extend(TextLoader("docs/recursos_utiles.md", encoding="utf-8").load())
 
-# === Cargar PDFs con información de tasas ===
-pdf_files = [
+# === PDFs ===
+pdfs = [
     "docs/tasas-de-interés-activas-y-pasivas-1.pdf",
     "docs/tasas-de-interés-y-tarifarios-de-productos-y-servicios-1.pdf"
 ]
-
-for pdf_file in pdf_files:
-    pdf_loader = PyPDFLoader(pdf_file)
-    pdf_docs = pdf_loader.load()
+for file in pdfs:
+    loader = PyPDFLoader(file)
+    pdf_docs = loader.load()
     for doc in pdf_docs:
         doc.metadata["tipo_documento"] = "tasas_y_tarifas"
     documents.extend(pdf_docs)
 
-# === División en chunks ===
+# === Chunking ===
 splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
 docs = splitter.split_documents(documents)
 
-# === Embeddings ===
-embedding = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+# === Embeddings (versión final y correcta) ===
+embedding = HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-small")
 
 # === Guardar en Chroma ===
 db = Chroma.from_documents(
-    docs,
-    embedding,
+    docs, embedding,
     persist_directory="db",
     collection_name="creditos"
 )
 
-print("✅ Ingesta finalizada: documentos HTML, simuladores y PDFs cargados y base vectorial generada.")
+print("✅ Ingesta completada correctamente.")

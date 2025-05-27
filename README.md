@@ -71,6 +71,7 @@ Esto cargará los documentos, los dividirá en chunks y los almacenará como vec
 
 ```bash
 uvicorn main:app --reload --port 8000
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 ---
