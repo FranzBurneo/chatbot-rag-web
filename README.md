@@ -20,7 +20,7 @@ Este proyecto es un chatbot conversacional que responde preguntas sobre producto
 ### 1. Clona el repositorio
 
 ```bash
-https://github.com/tuusuario/chatbot-rag-web.git
+https://github.com/FranzBurneo/chatbot-rag-web.git
 cd chatbot-rag-web/backend
 ```
 
@@ -129,7 +129,8 @@ chatbot-rag-web/
 
 ---
 
-## 👤 Autor
+## 👤 Autores
 
-**Franz Burneo Monteros**   
+**Franz Burneo Monteros**
+**[David Burneo Valencia](https://github.com/daburneo1)** 
 Ingeniero en Sistemas

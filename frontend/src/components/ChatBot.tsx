@@ -30,7 +30,7 @@ const ChatBot = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:8000/ask', { question: input });
+      const res = await axios.post('http://192.168.0.103:8000/ask', { question: input });
       setMessages((prev) => [...prev, { sender: 'bot', text: res.data.answer }]);
     } catch {
       setMessages((prev) => [
