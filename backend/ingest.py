@@ -15,8 +15,8 @@ for path, tipo in docs_info:
     loader = UnstructuredHTMLLoader(path)
     loaded = loader.load()
     for doc in loaded:
-        doc.page_content = re.sub(r"Pregunta del usuario:\s*", "", doc.page_content)
-        doc.page_content = re.sub(r"Respuesta:\s*", "", doc.page_content)
+        doc.page_content = re.sub(r"Pregunta del usuario:\s*", "", doc.page_content, flags=re.IGNORECASE)
+        doc.page_content = re.sub(r"Respuesta:\s*", "", doc.page_content, flags=re.IGNORECASE)
         doc.metadata["tipo_credito"] = tipo
     documents.extend(loaded)
 

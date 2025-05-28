@@ -42,19 +42,16 @@ vectorstore = Chroma(
 )
 
 # === PROMPT PERSONALIZADO ===
-custom_prompt = PromptTemplate.from_template(
-    """Eres el asistente de CoopMego. Tu función es responder preguntas en español sobre productos financieros, tasas de interés, simuladores y otros servicios.
+custom_prompt = PromptTemplate.from_template("""
+Eres el chatbot de CoopMego. Responde preguntas en español, de forma directa y clara, usando únicamente el siguiente contexto:
 
-Responde usando únicamente el contexto proporcionado. Si encuentras un enlace relevante en el contexto, inclúyelo en la respuesta.
-
-=== CONTEXTO ===
 {context}
-================
 
-Pregunta del usuario: {question}
+No respondas preguntas que no estén explícitamente solicitadas. No incluyas preguntas nuevas en tus respuestas.
 
-Respuesta:"""
-)
+Pregunta: {question}
+Respuesta:
+""")
 
 # === QA CHAIN ===
 retriever = vectorstore.as_retriever(search_type="similarity", k=2)
